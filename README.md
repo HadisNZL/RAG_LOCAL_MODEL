@@ -73,6 +73,27 @@ curl -X POST http://127.0.0.1:11435/v1/chat/completions \
 }'
 ```
 
+**完整启动与测试日志示例：**
+```
+# niuzilin @ zhanbuzhedeMacBook-Pro in ~/VSCodeProjects/LoaclModel rag-env [9:48:53]
+$ python3 local_rag_server.py
+INFO:     Started server process [57586]
+INFO:     Waiting for application startup.
+🐳 [Lifespan] 无有效向量库，正在执行首次全量索引...
+🔍 开始扫描项目目录: /Users/niuzilin/VSCodeProjects/LocalModel/ ...
+🚀 开始向 Chroma 录入 96 个分片 (Batch Size: 64)...
+📊 已录入分片: 64/96
+📊 已录入分片: 96/96
+✅ 索引处理完毕，总计成功处理 96 个代码分片
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:11435 (Press CTRL+C to quit)
+🧬 [纯净意图提取] 从用户历史提问中成功解析到目标文件: 'CommonHelpWebActivity.kt'
+🎯 [物理提取模式] 尝试从库中全量提取文件: 'CommonHelpWebActivity.kt'
+✅ 成功提取到 'CommonHelpWebActivity.kt' 的 3 个代码切片
+INFO:     127.0.0.1:64665 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64737 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+```
+
 ### 2. 代码大量修改后，手动刷新向量索引
 ```bash
 curl http://127.0.0.1:11435/ingest/rebuild
