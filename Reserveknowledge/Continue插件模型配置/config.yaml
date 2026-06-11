@@ -1,0 +1,80 @@
+name: Local Config
+version: 1.0.0
+schema: v1
+models:
+
+  # 云端DeepSeek
+  - name: DeepSeek Coder
+    provider: openai
+    model: deepseek-v4-flash
+    apiKey: xxxxx-xxxx-xxxxxx
+    apiBase: https://api.deepseek.com
+
+  # 火山豆包代码模型
+  - name: Doubao-Code
+    provider: openai
+    apiKey: xxxxx-xxxx-xxxxxxark-67a42213
+    apiBase: https://ark.cn-beijing.volces.com/api/v3
+    model: ep-20260605180645-xcfkc
+    maxTokens: 32768
+    temperature: 0.1 
+  
+   # 本地Ollama DeepSeek-Coder 6.7B 新增
+   # apiKey 随便填占位字符串即可，Ollama 本地无鉴权校验
+   # apiBase 固定 http://127.0.0.1:11434/v1，标准 OpenAI 兼容路径
+   # model 名称必须和你 ollama list 里完全一致：deepseek-coder:6.7b-instruct-q4_K_M
+   # temperature 压到很低，代码生成更严谨、少脑补错误逻辑
+  - name: Local-DeepSeek-6.7B
+    provider: openai
+    model: deepseek-coder:6.7b-instruct-q4_K_M
+    apiKey: local-placeholder
+    apiBase: http://127.0.0.1:11434/v1
+    maxTokens: 8192
+    contextWindow: 8192
+    temperature: 0.08
+
+  # 通义千问3 8B通用对话
+  - name: Local-Qwen3-8B
+    provider: openai
+    model: qwen3:8b-q4_K_M
+    apiKey: local-placeholder
+    apiBase: http://127.0.0.1:11434/v1
+    maxTokens: 8192
+    contextWindow: 8192
+    temperature: 0.15
+
+  # DeepSeek R1 7B推理蒸馏模型（逻辑思考、解题、算法）
+  - name: Local-DeepSeek-R1-7B
+    provider: openai
+    model: deepseek-r1:7b-qwen-distill-q4_K_M
+    apiKey: local-placeholder
+    apiBase: http://127.0.0.1:11434/v1
+    maxTokens: 8192
+    contextWindow: 8192
+    temperature: 0.05
+
+  # Qwen3-VL 8B多模态图文模型（识图、截图解析、图表识别）
+  - name: Local-Qwen3-VL-8B
+    provider: openai
+    model: qwen3-vl:8b-instruct-q4_K_M
+    apiKey: local-placeholder
+    apiBase: http://127.0.0.1:11434/v1
+    maxTokens: 8192
+    contextWindow: 8192
+    temperature: 0.1
+    
+  # RAG增强代码模型（自动读取工程源码）
+  - name: Local-RAG-Coder
+    provider: openai
+    model: deepseek-coder:6.7b-instruct-q4_K_M
+    apiKey: rag-dummy-key
+    apiBase: http://127.0.0.1:11435/v1
+    maxTokens: 8192
+    contextWindow: 8192
+    temperature: 0.08
+
+#总结
+# Local-DeepSeek-6.7B：主力写代码、重构、bug 修复、Android/Kotlin 开发
+# Local-Qwen3-8B：日常问答、需求梳理、文案、普通技术闲聊
+# Local-DeepSeek-R1-7B：算法推导、复杂逻辑推演、数学、深度问题排查
+# Local-Qwen3-VL-8B：上传截图、报错界面、UI 图、日志截图识图解读
